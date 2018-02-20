@@ -42,6 +42,14 @@ public class Clinica {
         vacunas.addElement(c);
     }
 
+    public void mostrarVacunas(){
+        for (int i = 0; i < vacunas.size(); i++) {
+            System.out.println(vacunas.get(i).toString());
+            
+        }
+    
+    }
+    
     public Vacuna obtenerVacuna(int id) {
         for (int i = 0; i < vacunas.size(); i++) {
             if (vacunas.get(i).getId() == id) {

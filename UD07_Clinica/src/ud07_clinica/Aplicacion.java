@@ -25,11 +25,14 @@ public class Aplicacion {
         double precio;
         String estado = "inactivo";
         Calendar proxVacuna = null;
+        Calendar fecha=null;
+        int año, mes, dia, hora, minutos;
 
         Clinica clinica = null;
         Vacuna vacuna = null;
         Perro perro = null;
         Perro perroActivo = null;
+        VacunaPerro fechaVacunacion=null;
 
         do {
             menu();
@@ -82,16 +85,35 @@ public class Aplicacion {
                     if (perroActivo == null) {
                         System.out.print("Raza: ");
                         raza = teclado.nextLine();
-                        perro = new Perro(nombrePerro, raza, proxVacuna);
+                        perroActivo = new Perro(nombrePerro, raza, proxVacuna);
                         clinica.añadirPerro(perro);
                     }
 
                     do {
+                        clinica.mostrarVacunas();
                         System.out.print("ID vacuna: ");
                         id = teclado.nextInt();
                         vacuna = clinica.obtenerVacuna(id);
                     } while (vacuna != null);
-
+                    
+                    System.out.println("Año: ");
+                    año=teclado.nextInt();
+                    System.out.println("Mes: ");
+                    mes=teclado.nextInt();
+                    System.out.println("Día: ");
+                    dia=teclado.nextInt();
+                    System.out.println("Hora: ");
+                    hora=teclado.nextInt();
+                    System.out.println("Minutos: ");
+                    minutos=teclado.nextInt();
+                    
+                    fecha.set(año, mes, dia, hora, minutos, 0);
+                    
+                    if(fechaVacunacion.buscarVacunaPerro(perroActivo, fecha)){
+                        perro.añadirVacuna(vacuna);
+                    }else{
+                        System.out.println("No se puede administrar la misma vacuna en un mismo día");
+                    }
                     break;
 
                 default:

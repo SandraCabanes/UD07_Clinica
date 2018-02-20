@@ -13,4 +13,25 @@ import java.util.Calendar;
  */
 public class VacunaPerro {
     private Calendar fecha;
+
+    public VacunaPerro() {
+    }
+
+    public VacunaPerro(Calendar fecha) {
+        this.fecha = fecha;
+    }
+    
+    public boolean buscarVacunaPerro(Perro p, Calendar fecha){
+        
+    }
+
+    public Calendar getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Calendar fecha) {
+        this.fecha = fecha;
+    }
+    
+    
 }
