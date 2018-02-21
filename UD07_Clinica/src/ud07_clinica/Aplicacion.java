@@ -24,15 +24,14 @@ public class Aplicacion {
         int recuerdo, id;
         double precio;
         String estado = "inactivo";
-        Calendar proxVacuna = null;
-        Calendar fecha=null;
+        Calendar fecha = Calendar.getInstance();
         int año, mes, dia, hora, minutos;
 
         Clinica clinica = null;
         Vacuna vacuna = null;
         Perro perro = null;
         Perro perroActivo = null;
-        VacunaPerro fechaVacunacion=null;
+        VacunaPerro vp = null;
 
         do {
             menu();
@@ -65,29 +64,28 @@ public class Aplicacion {
                     break;
 
                 case 3:
-                    System.out.print("Nombre: ");
-                    nombrePerro = teclado.nextLine();
-                    perroActivo = clinica.buscarPerro(nombrePerro);
-                    if (perroActivo == null) {
-                        System.out.print("Raza: ");
-                        raza = teclado.nextLine();
-                        perro = new Perro(nombrePerro, raza, proxVacuna);
-                        clinica.añadirPerro(perro);
-                    } else {
-                        System.out.println("El perro ya existe");
-                    }
+                    do {
+                        System.out.print("Nombre: ");
+                        nombrePerro = teclado.nextLine();
+                        perroActivo = clinica.buscarPerro(nombrePerro);
+                    } while (perroActivo == null);
+                    System.out.print("Raza: ");
+                    raza = teclado.nextLine();
+                    perro = new Perro(nombrePerro, raza, null);
+                    clinica.añadirPerro(perro);
+
                     break;
 
                 case 4:
-                    System.out.print("Nombre: ");
-                    nombrePerro = teclado.nextLine();
-                    perroActivo = clinica.buscarPerro(nombrePerro);
-                    if (perroActivo == null) {
-                        System.out.print("Raza: ");
-                        raza = teclado.nextLine();
-                        perroActivo = new Perro(nombrePerro, raza, proxVacuna);
-                        clinica.añadirPerro(perro);
-                    }
+                    do {
+                        System.out.print("Nombre: ");
+                        nombrePerro = teclado.nextLine();
+                        perroActivo = clinica.buscarPerro(nombrePerro);
+                    } while (perroActivo == null);
+                    System.out.print("Raza: ");
+                    raza = teclado.nextLine();
+                    perroActivo = new Perro(nombrePerro, raza, null);
+                    clinica.añadirPerro(perro);
 
                     do {
                         clinica.mostrarVacunas();
@@ -95,25 +93,54 @@ public class Aplicacion {
                         id = teclado.nextInt();
                         vacuna = clinica.obtenerVacuna(id);
                     } while (vacuna != null);
-                    
+
                     System.out.println("Año: ");
-                    año=teclado.nextInt();
+                    año = teclado.nextInt();
                     System.out.println("Mes: ");
-                    mes=teclado.nextInt();
+                    mes = teclado.nextInt();
                     System.out.println("Día: ");
-                    dia=teclado.nextInt();
+                    dia = teclado.nextInt();
                     System.out.println("Hora: ");
-                    hora=teclado.nextInt();
+                    hora = teclado.nextInt();
                     System.out.println("Minutos: ");
-                    minutos=teclado.nextInt();
-                    
+                    minutos = teclado.nextInt();
+
                     fecha.set(año, mes, dia, hora, minutos, 0);
-                    
-                    if(fechaVacunacion.buscarVacunaPerro(perroActivo, fecha)){
-                        perro.añadirVacuna(vacuna);
-                    }else{
-                        System.out.println("No se puede administrar la misma vacuna en un mismo día");
+
+                    vp = new VacunaPerro(fecha, vacuna);
+
+                    if (!perroActivo.buscarVacunaPerro(vp)) {
+                        perroActivo.añadirVacuna(vp);
+                    } else {
+                        System.out.println("No se puede administrar la misma vacuna el mismo día");
                     }
+
+                    break;
+
+                case 5:
+                    System.out.print("Nombre: ");
+                    nombrePerro = teclado.nextLine();
+                    perroActivo = clinica.buscarPerro(nombrePerro);
+                    perroActivo.mostrarVacunasPerro();
+                    break;
+
+                case 6:
+                    System.out.print("Nombre: ");
+                    nombrePerro = teclado.nextLine();
+                    perroActivo = clinica.buscarPerro(nombrePerro);
+                    if (perroActivo != null) {
+                        perroActivo.mostrarVacunasPerro();
+
+                        perroActivo.actualizarFecha();
+
+                        System.out.println(perroActivo.getProxVacuna());
+                    } else {
+                        System.out.println("El perro no existe");
+                    }
+                    break;
+
+                case 7:
+
                     break;
 
                 default:
@@ -126,6 +153,9 @@ public class Aplicacion {
         System.out.println("1. Alta clínica");
         System.out.println("2. Alta vacunas");
         System.out.println("3. Alta perros");
+        System.out.println("4. Vacunar perro");
+        System.out.println("5. Listado de vacunas");
+        System.out.println("6. Cambiar fecha vacunación");
     }
 
 }

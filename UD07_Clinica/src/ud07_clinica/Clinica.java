@@ -59,6 +59,14 @@ public class Clinica {
         }
         return null;
     }
+    
+//    public ArrayList mostrarPerrosPorVacunas(){
+//        ArrayList<Perro> vacunasPerros;
+//        for (int i = 0; i < perros.size() ; i++) {
+//           if(perros.get(i).ge)
+//            
+//        }
+//    }
 
     public String getNombre() {
         return nombre;

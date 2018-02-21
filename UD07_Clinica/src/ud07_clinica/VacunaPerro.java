@@ -13,17 +13,21 @@ import java.util.Calendar;
  */
 public class VacunaPerro {
     private Calendar fecha;
+    private Vacuna vacuna;
 
     public VacunaPerro() {
     }
 
-    public VacunaPerro(Calendar fecha) {
+    public VacunaPerro(Calendar fecha, Vacuna vacuna) {
         this.fecha = fecha;
+        this.vacuna = vacuna;
+    }
+
+    @Override
+    public String toString() {
+        return "VacunaPerro{" + "fecha=" + fecha + ", vacuna=" + vacuna + '}';
     }
     
-    public boolean buscarVacunaPerro(Perro p, Calendar fecha){
-        
-    }
 
     public Calendar getFecha() {
         return fecha;
@@ -32,6 +36,13 @@ public class VacunaPerro {
     public void setFecha(Calendar fecha) {
         this.fecha = fecha;
     }
-    
+
+    public Vacuna getVacuna() {
+        return vacuna;
+    }
+
+    public void setVacuna(Vacuna vacuna) {
+        this.vacuna = vacuna;
+    }
     
 }

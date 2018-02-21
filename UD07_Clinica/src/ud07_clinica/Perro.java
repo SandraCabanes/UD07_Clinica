@@ -13,10 +13,11 @@ import java.util.Calendar;
  * @author mati
  */
 public class Perro {
+
     private String nombre;
     private String raza;
     private Calendar proxVacuna;
-    private ArrayList<Vacuna> vacunas;
+    private ArrayList<VacunaPerro> vacunas;
 
     public Perro() {
     }
@@ -26,9 +27,42 @@ public class Perro {
         this.raza = raza;
         this.proxVacuna = proxVacuna;
     }
-    
-    public void añadirVacuna(Vacuna c){
-        vacunas.add(c);
+
+    public void añadirVacuna(VacunaPerro vp) {
+        vacunas.add(vp);
+    }
+
+    public boolean buscarVacunaPerro(VacunaPerro vp) {
+        for (int i = 0; i < vacunas.size(); i++) {
+            if (vacunas.get(i).getVacuna().equals(vp.getVacuna()) && vacunas.get(i).getFecha().equals(vp.getFecha())) {
+                return true;
+
+            }
+
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return "Perro{" + "nombre=" + nombre + ", raza=" + raza + ", proxVacuna=" + proxVacuna + ", vacunas=" + vacunas + '}';
+    }
+
+    public void mostrarVacunasPerro() {
+        for (VacunaPerro vacuna : vacunas) {
+            System.out.println(vacuna);
+        }
+    }
+
+    public void actualizarFecha() {
+        Calendar fechaMax = null;
+        for (VacunaPerro vacuna : vacunas) {
+            if (vacuna.getFecha().after(fechaMax)) {
+                fechaMax = vacuna.getFecha();
+            }
+        }
+        fechaMax.add(Calendar.YEAR, 1);
+        setProxVacuna(fechaMax);
     }
 
     public String getNombre() {
@@ -54,6 +88,5 @@ public class Perro {
     public void setProxVacuna(Calendar proxVacuna) {
         this.proxVacuna = proxVacuna;
     }
-    
-    
+
 }
